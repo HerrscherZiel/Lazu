@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->boolean('active')->default(0);
             $table->string('password');
             $table->string('token', '512')->nullable();
-            $table->enum('role', ['siswa', 'tutor', 'admin']);
+            $table->enum('role', ['siswa', 'tutor', 'admin', 'wali']);
             $table->rememberToken();
             $table->timestamps();
         });

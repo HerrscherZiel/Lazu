@@ -59,7 +59,7 @@
                                 <!-- small box -->
                                 <div class="small-box bg-yellow">
                                     <div class="inner">
-                                        <h3>{{ DB::table('model_invoice')->where('status','BELUM AKTIF')->count()}}</h3>
+                                        <h3>{{ DB::table('model_invoice')->count()}}</h3> <!-- where status belum aktif -->
                                         <p>Pendaftaran <br>
                                          Les Siswa</p>
                                     </div>

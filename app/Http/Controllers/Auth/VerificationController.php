@@ -65,6 +65,7 @@ class VerificationController extends Controller
         $user->save();
         $siswa = ModelSiswa::where('id', '=', Auth::user()->id)->first();
         $tutor = Modeltutor::where('id', '=', Auth::user()->id)->first();
+        $wali = Modeltutor::where('id', '=', Auth::user()->id)->first();
         if($user->role=='siswa')
         {
             if ($siswa != NULL){
@@ -73,7 +74,16 @@ class VerificationController extends Controller
                 return redirect('/dataSiswa')->withMessage('Your account is active');
 
             } 
-        } else {
+        } 
+        else if($user->role=='wali')
+        {
+            if ($wali != NULL){
+                return redirect('/wali')->withMessage('Your account is active');
+            } else {
+                return redirect('/dataWali')->withMessage('Your account is active');
+            } 
+        } 
+        else {
             if ($tutor != NULL){
                 return redirect('/tutor')->withMessage('Your account is active');
             } else {

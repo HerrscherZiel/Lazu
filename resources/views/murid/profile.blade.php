@@ -1192,6 +1192,8 @@ position: relative;
             <div class="col-8">
                 <div class="card">
                     <div class="card-body">
+                    <i class="fas fa-user mr-2"></i>Biodata
+                        <hr>
                         <table class="w-100 table-responsive-md">
                             <tbody>
                                 <tr>
@@ -1228,6 +1230,72 @@ position: relative;
                     </div>
                     <!-- /.col-md-6 -->
                     @endforeach
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                    <div class="row">
+                        <div class="col-2">
+                            <i class="fas fa-user mr-2"></i>Wali
+                        </div>
+                    </div>
+                    <hr>
+                    @if(count($siswaWali) > 0)     
+                        <table class="w-100 table-responsive-md">
+                            <thead>
+                                <tr>
+                                    <th>Nama</th>
+                                    <th>Status</th>
+                                    @foreach($siswaWali as $sw)                             
+                                    @if($sw->status_siswa != "Diterima")
+                                    <th>Aksi</th>
+                                    @endif
+                                    @endforeach
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($siswaWali as $sw)                             
+                                <td>
+                                    {{$sw->name}}
+                                </td>
+                                <td>
+                                    {{$sw->status_siswa}}
+                                </td>
+                                <!-- <td> -->
+                                @if($sw->status_siswa != "Diterima")
+                                <td>
+                                    <div>
+                                        <div class="btn-group">
+                                            <form class="accept" method="post" action="{{ route('siswaWali.update', $sw->id)}}" 
+                                                enctype="multipart/form-data">
+                                                    @method('PATCH')
+                                                    @csrf
+                                                <input type="hidden" name="status_siswa" id="idang" value="Diterima">
+                                                <button type="submit" class="btn btn-primary delete-btn accept-confirm">
+                                                Terima
+                                                </button>
+                                            </form> 
+                                            <form class="delete" action="{{ route('siswaWali.destroy', $sw->id)}}" method="post">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger delete-btn delete-confirm" type="submit">
+                                                Tolak
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </td>
+                                @else
+                                @endif
+                                <!-- </td> -->
+                                @endforeach
+ 
+                            </tbody>
+                        </table>
+                        @else
+                            Belum ada data wali
+                        @endif  
+                    </div>
                 </div>
             </div>
 

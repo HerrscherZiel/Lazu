@@ -162,6 +162,27 @@ opacity: 80%;
 #custom-button2:hover {
 opacity: 80%;
 }
+
+#custom-buttonw{
+  padding-bottom: 5px;
+  padding-top: 5px;
+  padding-right: 7px;
+  padding-left: 7px;
+  color: white;
+  background-color: #03a9f4;
+  border: 1px solid #565656;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 300;
+  margin-left: 10px;
+}
+ #custom-buttonw:focus{
+ border-color:#fff;
+ outline:0;box-shadow:0 0 0 .2rem rgba(0,0,0,.0)
+}
+#custom-buttonw:hover {
+opacity: 80%;
+}
 #custom-text2 {
   margin-left: 10px;
   font-family: sans-serif;

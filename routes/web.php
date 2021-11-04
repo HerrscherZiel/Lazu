@@ -9,7 +9,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+use App\Http\Controllers\WaliController;
 Auth::routes(['verify' => true]);
 
 
@@ -79,6 +79,9 @@ Route::get('/registerSiswa', function () {
 });
 Route::get('/registerTutor', function () {
     return view('base/registerTutor_page');
+});
+Route::get('/registerWali', function () {
+    return view('base/Wali/registerWali_page');
 });
 Route::get('/registerPilih', function () {
     return view('base/pilihan_page');
@@ -258,6 +261,39 @@ Route::middleware(['siswa'])->group(function () {
     Route::get('kehadiranLes/{id}','AbsenController@kehadiranLes')->name('kehadiranLes');
 });
 
+//Wali
+// Route::middleware(['wali'])->group(function () {
+//     Route::get('/wali', 'WaliController@index');
+
+// });
+
+
+// Route::middleware(['wali'])->group(function () {
+//     Route::get('/wali','WaliController@dashboardWali');
+// });
+// Route::get('/edit', function () {
+//     return view('tutor/editprofile');
+// });
+Route::get('/wali','WaliController@dashboardWali');
+
+//ProfileWali
+Route::get('/profileWali','WaliController@profileWali');
+// Route::get('/editWali','WaliController@edit');
+// Route::match(['put', 'patch'], '/tambahSiswa/update/{id}','WaliController@updateSiswa')->name('wali.tambah.siswa');
+Route::get('/tambahSiswa/{id}','WaliController@tambahSiswa')->name('dataWali.tambahSiswa');
+// Route::get('/editMurid/{id}/edit', 'Auth\RegisterController@editMurid')->name('editMurid');
+
+
+Route::get('/dataWali', function () {
+    return view('base/Wali/dataWali');
+});
+Route::get('/informasiWali','WaliController@informasiWali');
+Route::resource('dataWali','WaliController');
+Route::resource('siswaWali','SiswaWaliController');
+
+
+
+
 Route::resource('dataTutor','TutorController')->middleware('verified');
 Route::resource('dataSiswa','SiswaController');
 Route::resource('paketProgram','InvoiceController');
@@ -270,6 +306,7 @@ Route::resource('absen','AbsenController');
 Route::resource('formulir','FormulirController');
 Route::resource('paket','PaketController');
 Route::resource('mapel','MapelController');
+
 
 
 
@@ -322,6 +359,9 @@ Route::post('/testimoni/create','TestimoniController@create');
 Route::get('/testimoni/{id}/edit', 'TestimoniController@edit')->name('testimoni.edit');
 Route::post('/testimoni/{id}/update', 'TestimoniController@update')->name('testimoni.update');
 Route::get('/testimoni/{id}/delete', 'TestimoniController@delete')->name('testimoni.delete');
+
+
+
 
 
 

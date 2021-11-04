@@ -30,7 +30,11 @@ class VerifyController extends Controller
             if($user->role=='siswa')
             {
              return redirect('/paketProgram')->withMessage('Your account is active');
-            } else {
+            } 
+            else if(Auth::user()->role == 'wali'){
+            return redirect('/dataWali');
+            }
+            else {
             return redirect('/dataTutor');
             }
         }

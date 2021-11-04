@@ -1,16 +1,15 @@
-@extends('tutor/base')
+@extends('wali/base')
 @section('content')
 <!-- Content Header (Page header) -->
 <div class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
-
-            @if(Auth::user()->data->status == 'MENUNGGU')
+            @php $siswa = $data->siswa_id @endphp
+            @if($siswa == NULL)
             <div class="col-sm-12">
                 <h1 class="m-0 text-dark">Informasi!</h1><br>
                 <div class="alert alert-light" style="font-size:14px;background-color:white;color:black">
-                    <strong>Perhatian!</strong> Pastikan kontak anda selalu aktif
-                    untuk menerima informasi lengkap tentang seleksi!
+                    <strong>Perhatian!</strong> Anda belum menambahkan data putra/putri anda, anda dapat menambahkannnya pada halaman profil
                 </div>
                 @else
                 <div class="col-sm-12">
@@ -60,59 +59,37 @@
                                 <tbody>
                                     <tr>
                                         @php $no = 1; @endphp
-                                        @foreach($jadwal as $d)
+ 
 
-                                        <td>{{ $no++ }}</td>
+                                        <td>a</td>
                                         <td>
-                                            {{ $d->jadwal->name }}
+                                            a
                                         </td>
                                         <td>
-                                            {{ $d->siswa->jenis_kelamin }}
+                                            a
                                         </td>
                                         <td>
-                                            {{ $d->siswa->provinsi }},
-                                            {{ $d->siswa->kabupaten }},
-                                            {{ $d->siswa->kecamatan }},
-                                            {{ $d->siswa->alamat_detail }}
+                                            a
 
                                         </td>
                                         <td>
-                                            {{ $d->invoice->program->program }}
+                                            a
                                         </td>
                                         <td>
-                                            {{ $d->invoice->kategori }}
+                                            a
                                         </td>
                                         <td>
-                                            {{ $d->invoice->kelas->kelas }}
+                                            a
                                         </td>
 
-                                        <td>{{ $d->mapel->mapel }}</td>
-                                        <td>{{ $d->hari1 }} {{ $d->waktu_hari1 }}</td>
-                                        <td>{{ $d->hari2 }} {{ $d->waktu_hari2 }}</td>
+                                        <td>a</td>
+                                        <td>a</td>
+                                        <td>a</td>
 
                                         <td class="d-flex">
 
-                                            <form action="{{ route('pendaftaranSiswa.update', $d->id) }}" method="post"
-                                                enctype="multipart/form-data" id="formStatus" name="formStatus">
-                                                {{ csrf_field() }}
-                                                {{ method_field('PUT') }}
-                                                <input style="display:none" type="text" class="form-control"
-                                                    id="tutor_id" name="tutor_id" value="{{ Auth::user()->id }}">
-
-                                                <input style="display:none" type="text" class="form-control" id="status"
-                                                    name="status" value="DIPILIH TUTOR">
-                                                <!-- button update -->
-                                                <button id="status" name="btnSubmit" data-toggle="tooltip"
-                                                    data-placement="top" title="Ajukan" type="submit"
-                                                    class=" btn btn-sm btn-success mr-2 accept" onclick="return confirm('Anda yakin ingin mengajukan jadwal?')"> <i
-                                                        class="fas fa-check"></i>
-                                                </button>
-
-                                            </form>
-
                                         </td>
                                     </tr>
-                                    @endforeach
 
                                 </tbody>
                             </table>
@@ -132,6 +109,7 @@
 
     @endsection
     @section('sweet')
+    
     <script>
     
         $(document).ready(function () {

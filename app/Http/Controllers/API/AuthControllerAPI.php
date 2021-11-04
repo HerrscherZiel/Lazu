@@ -141,6 +141,41 @@ class AuthControllerAPI extends Controller
         ]);
     }
 
+    public function storeWali(Request $request)
+    {
+        $this->validate($request, [
+            'name'       => 'required',
+            'email'      => 'required|unique:users',
+            'password'   => 'required',
+            'phone'      => 'required',
+        ],
+        [
+            'name.required'     => 'Nama harus diisi',
+            'email.required'    => 'Email harus diisi',
+            'phone.required'    => 'Nomor Handphone harus diisi',
+            'password.required' => 'Password harus diisi',
+
+        ]
+        );
+        $user = User::create([
+            'name'      => $request->name,
+            'email'     => $request->email,
+            'phone'     => $request->phone,
+            'active'    => 0,
+            'password'  => Hash::make($request->password),
+            'role'      => 'wali',
+            
+        ]);
+        if($user){
+            $user->save();
+            $user->sendEmailVerificationNotification();
+        }
+        return response()->json([
+            'status' => 'sukses',
+            'result' => $user
+        ]);
+    }
+
 
     public function data(){
             $data = User::where('id', '=', Auth::user()->id)->get();

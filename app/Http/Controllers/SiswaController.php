@@ -12,6 +12,7 @@ use App\ModelKecamatan;
 use Image;
 use App\Provinsi;
 use DB;
+use App\SiswaWali;
 use Session;
 use App\ModelJadwal;
 use App\Mail\PaymentMail;
@@ -27,7 +28,7 @@ class SiswaController extends Controller
     }
     
     public function daftarSiswa(){
-        $data = ModelInvoice::where('status', 'AKTIF')->get();
+        $data = ModelInvoice::all(); //model invoice where aktif
         return view('dashboard_admin.daftarSiswa', compact('data'));
     }
 
@@ -62,9 +63,17 @@ class SiswaController extends Controller
 
     
     public function profileSiswa(){
+        $id = Auth::user()->id;
+
         $data = ModelSiswa::where('id', '=', Auth::user()->id)->get();
         $user = User::where('id', '=', Auth::user()->id)->get();
-        return view('murid.profile', compact('data', 'user'));
+        $siswaWali = SiswaWali::join('users', 'users.id', '=', 'siswa_wali.wali_id')
+                                // ->join('users', 'users.id', '=', '')
+                                ->where('siswa_id', '=', $id)
+                                ->select('users.*', 'siswa_wali.*')
+                                ->get();
+        // dd($user);
+        return view('murid.profile', compact('data', 'user', 'siswaWali'));
     }
 
     
@@ -135,7 +144,6 @@ class SiswaController extends Controller
        ],
 
        [
-           
             'tanggal_lahir.required' => 'Tanggal lahir tidak boleh kosong',
             'file.mimes' => 'Format Foto diri tidak didukung',
             'file.max' => 'Foto diri lebih dari 2mb'

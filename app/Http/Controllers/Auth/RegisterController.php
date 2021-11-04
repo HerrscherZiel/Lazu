@@ -57,7 +57,6 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
             'phone' => ['required', 'min:10', 'max:13', 'unique:users'],
-        
         ]);
 
         $id= $user->id; // Get current user id
@@ -147,15 +146,22 @@ class RegisterController extends Controller
         $data->phone = $request->phone;
         $data->save();
 
-         if ($data ['role'] == 'tutor'){
-        return redirect('profile')->withMessage('success', 'Berhasil Merubah Data');
-        } else if ($data ['role'] == 'siswa') {
+        if ($data ['role'] == 'tutor'){
+            return redirect('profile')->withMessage('success', 'Berhasil Merubah Data');
+        } 
+        else if ($data ['role'] == 'siswa') {
 
             return redirect('profileMurid')->with('success', 'Data profil akun berhasil di ubah');
 
             return redirect('profileMurid')->withMessage('success', 'Berhasil Merubah Data');
+        } 
+        else if ($data ['role'] == 'wali'){
 
-        } else {
+            return redirect('profileWali')->with('success', 'Data profil akun berhasil di ubah');
+
+            return redirect('profileWali')->withMessage('success', 'Berhasil Merubah Data');
+        }
+        else {
             return redirect('profileAdmin')->withMessage('success', 'Berhasil Merubah Data');
         }
     }
@@ -166,10 +172,9 @@ class RegisterController extends Controller
         return view('murid.editLogin', compact('data'));
     }
 
-  
-
     public function data(){
         $data = User::where('id', '=', Auth::user()->id)->get();
         return view('dashboard_admin.profileAdmin', compact('data'));
     }
+
 }

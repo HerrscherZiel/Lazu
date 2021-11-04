@@ -48,7 +48,7 @@
                                         <td>{{ $d->nama_lengkap }}</td>
                                         <td>{{ $d->no_telp }}</td>
                                         <td>{{ $d->asal_sekolah }}</td>
-                                        <td>{{ $d->tryout->nama}}</td>
+                                        <td>nama tryout</td>
                                         <td>{{ $d->email }}</td>
                                         <td>
                                             @if($d->file==null)
